@@ -5,8 +5,6 @@
 
 <img src="https://raw.githubusercontent.com/gr3edydevel0per/StrixNet_ZT-VPN/refs/heads/v0.1-proto0.3/Assets/accessControl.jpg">
 
- Designed for modern organizations, IPB-VPN ensures every device is verified, every connection is secured, and access is continuously evaluated.
-
 ## 🔐 Key Features
 
 ### ✅ Device Posture Check
