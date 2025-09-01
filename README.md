@@ -1,8 +1,6 @@
 # Identity & Posture-Based VPN
 ### 🛡️ Acess Control Flow
 
-<img src="https://raw.githubusercontent.com/gr3edydevel0per/StrixNet_ZT-VPN/refs/heads/v0.1-proto0.3/Assets/architecture.jpg">
-
 <img src="https://raw.githubusercontent.com/gr3edydevel0per/StrixNet_ZT-VPN/refs/heads/v0.1-proto0.3/Assets/accessControl.jpg">
 
 ## Mobile Application UI
