@@ -16,7 +16,7 @@
 
 ## Desktop Application UI
 
-<div style="diplay:flex;flex-direction:row">
+<div style="diplay:flex;flex-direction:row;padding:4px">
 <img src="https://raw.githubusercontent.com/gr3edydevel0per/IPB-VPN/refs/heads/v0.1-proto0.3/Assets/IMG-20250808-WA0022.jpg" width="400px" height="400px">
 <img src="https://raw.githubusercontent.com/gr3edydevel0per/IPB-VPN/refs/heads/v0.1-proto0.3/Assets/IMG-20250808-WA0019.jpg" width="400px" height="400px">
 <img src="https://raw.githubusercontent.com/gr3edydevel0per/IPB-VPN/refs/heads/v0.1-proto0.3/Assets/IMG-20250808-WA0018.jpg" width="400px" height="400px">
