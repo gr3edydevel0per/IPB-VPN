@@ -7,9 +7,11 @@
 
 ## Mobile Application UI
 
-<img src="https://raw.githubusercontent.com/gr3edydevel0per/IPB-VPN/refs/heads/v0.1-proto0.3/Assets/IMG-20250808-WA0015.jpg" width="200px" height="400px">
+<div style="diplay:flex;flex-direction:row">
+  <img src="https://raw.githubusercontent.com/gr3edydevel0per/IPB-VPN/refs/heads/v0.1-proto0.3/Assets/IMG-20250808-WA0015.jpg" width="200px" height="400px">
 <img src="https://raw.githubusercontent.com/gr3edydevel0per/IPB-VPN/refs/heads/v0.1-proto0.3/Assets/IMG-20250808-WA0021.jpg" width="400px" height="400px">
 <img src="https://raw.githubusercontent.com/gr3edydevel0per/IPB-VPN/refs/heads/v0.1-proto0.3/Assets/IMG-20250808-WA0014.jpg" width="400px" height="400px">
+</div>
 
 
 ## 🔐 Key Features
