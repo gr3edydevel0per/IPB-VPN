@@ -4,7 +4,10 @@
 <img src="https://raw.githubusercontent.com/gr3edydevel0per/StrixNet_ZT-VPN/refs/heads/v0.1-proto0.3/Assets/architecture.jpg">
 
 <img src="https://raw.githubusercontent.com/gr3edydevel0per/StrixNet_ZT-VPN/refs/heads/v0.1-proto0.3/Assets/accessControl.jpg">
+
 ## Mobile Application UI
+
+<img src="https://raw.githubusercontent.com/gr3edydevel0per/IPB-VPN/refs/heads/v0.1-proto0.3/Assets/IMG-20250808-WA0015.jpg">
 <img src="https://raw.githubusercontent.com/gr3edydevel0per/IPB-VPN/refs/heads/v0.1-proto0.3/Assets/IMG-20250808-WA0021.jpg">
 ## 🔐 Key Features
 
