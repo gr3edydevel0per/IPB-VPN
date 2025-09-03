@@ -9,7 +9,7 @@ AUTH_REQ_URL="http://<ENDPOINT:PORT>/api/devices/isAuthorized"
 NOTI_REQ_URL="http://<ENDPOINT:PORT>/api/devices/device-auth-req"
 CHECK_REQ_URL="http://<ENDPOINT:PORT>/api/devices/check-device-auth-res?uuid=$UUID"
 
-echo "${SESSION_TOKEN}" >> /var/scripts/extras.log
+
 
 # Check if device_id and uuid exist
 if [ -z "$DEVICE_ID" ] || [ -z "$UUID" ]; then
