@@ -2,6 +2,7 @@ const express = require('express');
 const jwt = require('jsonwebtoken');
 const dotenv = require('dotenv');
 const { executeQuery } = require("../utils/db");
+const { naive_client_ip } = require("../utils/clientIp");
 const e = require('express');
 
 dotenv.config();
@@ -233,9 +234,10 @@ router.post('/device-auth-req', verifyToken, async (req, res) => {
     const uuid = deviceData.uuid;
     const device_name = deviceData.device_name;
     const device_id = deviceData.device_id;
-    const ip_address = deviceData.ip_address;
+    // Extract client IP using naive_client_ip function instead of relying on client
+    const ip_address = naive_client_ip(req);
 
-    if (!device_name || !device_id || !ip_address) {
+    if (!device_name || !device_id) {
         return res.status(400).json({ error: 'Missing required fields' });
     }
 
@@ -401,6 +403,108 @@ router.post('/device-response', verifyToken, async (req, res) => {
     }
 });
 
+
+// GET /client-ip-test - Simple test endpoint (no auth required) to show which header naive_client_ip() extracts IP from
+router.get('/client-ip-test', async (req, res) => {
+    try {
+        const extractedIp = naive_client_ip(req);
+        
+        // Show all relevant headers for debugging
+        const headerInfo = {
+            'x-forwarded-for': req.headers['x-forwarded-for'] || null,
+            'x-real-ip': req.headers['x-real-ip'] || null,
+            'x-client-ip': req.headers['x-client-ip'] || null,
+            'cf-connecting-ip': req.headers['cf-connecting-ip'] || null,
+            'express-req-ip': req.ip || null,
+            'connection-remote-address': req.connection?.remoteAddress || req.socket?.remoteAddress || null
+        };
+
+        // Determine which header was used
+        let sourceHeader = 'unknown';
+        if (req.headers['x-forwarded-for'] && extractedIp === req.headers['x-forwarded-for'].split(',')[0].trim()) {
+            sourceHeader = 'x-forwarded-for';
+        } else if (req.headers['x-real-ip'] && extractedIp === req.headers['x-real-ip']) {
+            sourceHeader = 'x-real-ip';
+        } else if (req.headers['x-client-ip'] && extractedIp === req.headers['x-client-ip']) {
+            sourceHeader = 'x-client-ip';
+        } else if (req.headers['cf-connecting-ip'] && extractedIp === req.headers['cf-connecting-ip']) {
+            sourceHeader = 'cf-connecting-ip';
+        } else if (req.ip && extractedIp === req.ip) {
+            sourceHeader = 'express-req-ip';
+        } else if ((req.connection?.remoteAddress || req.socket?.remoteAddress) && extractedIp === (req.connection?.remoteAddress || req.socket?.remoteAddress)) {
+            sourceHeader = 'connection-remote-address';
+        }
+
+        res.status(200).json({
+            status: 'success',
+            message: 'Client IP extracted successfully using naive_client_ip() function',
+            data: {
+                extractedIp: extractedIp,
+                sourceHeader: sourceHeader,
+                allHeaders: headerInfo,
+                functionUsed: 'naive_client_ip()'
+            }
+        });
+    } catch (error) {
+        console.error('Error extracting client IP:', error);
+        res.status(500).json({
+            status: 'error',
+            message: 'Server error',
+            details: error.message
+        });
+    }
+});
+
+
+// GET /client-ip - Test endpoint to show which header naive_client_ip() extracts IP from
+router.get('/client-ip', verifyToken, async (req, res) => {
+    try {
+        const extractedIp = naive_client_ip(req);
+        
+        // Show all relevant headers for debugging
+        const headerInfo = {
+            'x-forwarded-for': req.headers['x-forwarded-for'] || null,
+            'x-real-ip': req.headers['x-real-ip'] || null,
+            'x-client-ip': req.headers['x-client-ip'] || null,
+            'cf-connecting-ip': req.headers['cf-connecting-ip'] || null,
+            'express-req-ip': req.ip || null,
+            'connection-remote-address': req.connection?.remoteAddress || req.socket?.remoteAddress || null
+        };
+
+        // Determine which header was used
+        let sourceHeader = 'unknown';
+        if (req.headers['x-forwarded-for'] && extractedIp === req.headers['x-forwarded-for'].split(',')[0].trim()) {
+            sourceHeader = 'x-forwarded-for';
+        } else if (req.headers['x-real-ip'] && extractedIp === req.headers['x-real-ip']) {
+            sourceHeader = 'x-real-ip';
+        } else if (req.headers['x-client-ip'] && extractedIp === req.headers['x-client-ip']) {
+            sourceHeader = 'x-client-ip';
+        } else if (req.headers['cf-connecting-ip'] && extractedIp === req.headers['cf-connecting-ip']) {
+            sourceHeader = 'cf-connecting-ip';
+        } else if (req.ip && extractedIp === req.ip) {
+            sourceHeader = 'express-req-ip';
+        } else if ((req.connection?.remoteAddress || req.socket?.remoteAddress) && extractedIp === (req.connection?.remoteAddress || req.socket?.remoteAddress)) {
+            sourceHeader = 'connection-remote-address';
+        }
+
+        res.status(200).json({
+            status: 'success',
+            message: 'Client IP extracted successfully',
+            data: {
+                extractedIp: extractedIp,
+                sourceHeader: sourceHeader,
+                allHeaders: headerInfo
+            }
+        });
+    } catch (error) {
+        console.error('Error extracting client IP:', error);
+        res.status(500).json({
+            status: 'error',
+            message: 'Server error',
+            details: error.message
+        });
+    }
+});
 
 
 module.exports = router;
