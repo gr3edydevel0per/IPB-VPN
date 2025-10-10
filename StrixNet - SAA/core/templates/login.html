@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="{{ url_for('static', filename='css/login.css') }}">
-    <title>Login - Remote Access</title>
+    <title>Investment Portal - Sign In</title>
     <style>
         /* Existing styles */
         
@@ -47,7 +47,8 @@
 <div class="container" id="container">
     <div class="form-container sign-in-container">
         <form id="loginForm" method="POST" action="{{ url_for('login') }}" onsubmit="handleSubmit(event)">
-            <h1>Sign in</h1>
+            <h1>Investment Portal</h1>
+            <p style="margin: 10px 0; color: #666;">Grow your wealth with smart investments</p>
             <div style="width: 100%;">
                 <input type="email" id="email" name="email" required placeholder="Email">
             </div>
@@ -70,15 +71,21 @@
        <div class="overlay">
             <div class="overlay-panel overlay-right">
                 <div class="rightPanel">
+                    <h1 style="color: white; font-size: 32px; margin-bottom: 20px;">📈 Smart Investing</h1>
+                    <p style="color: #ddd; font-size: 16px; line-height: 1.6;">
+                        Get personalized investment recommendations<br>
+                        Track stocks, shares, and mutual funds<br>
+                        Build your portfolio with confidence
+                    </p>
                     <script
                         src="https://unpkg.com/@dotlottie/player-component@2.7.12/dist/dotlottie-player.mjs"
                         type="module"
                     ></script>
                     <dotlottie-player
-                        src="https://lottie.host/22e04746-109b-4750-9c50-425019723099/0R9D8LN4xk.lottie"
+                        src="https://lottie.host/embed/8c0f9e1e-4a96-4c7e-b8db-6d3e5f8e3e6e/QPhxVHfVHF.json"
                         background="transparent"
                         speed="1"
-                        style="width: 300px; height: 300px"
+                        style="width: 250px; height: 250px; margin-top: 20px;"
                         loop
                         autoplay
                     ></dotlottie-player>
@@ -89,7 +96,7 @@
 </div>
 
 <footer>
-    <p>Powered by <strong>NetworkX</strong> 🔒 - Ensuring Safe & Trusted Access</p>
+    <p>Powered by <strong>InvestAI</strong> 💼 - Your Smart Investment Partner</p>
 </footer>
 
 <script>

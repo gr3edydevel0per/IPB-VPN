@@ -43,15 +43,21 @@ a {
 
 button {
 	border-radius: 20px;
-	border: 1px solid rgb(235, 181, 106);
-	background-color: rgb(235, 181, 106);
+	border: 1px solid #2563eb;
+	background: linear-gradient(135deg, #2563eb 0%, #1d4ed8 100%);
     	color: #FFFFFF;
 	font-size: 12px;
 	font-weight: bold;
 	padding: 12px 45px;
 	letter-spacing: 1px;
 	text-transform: uppercase;
-	transition: transform 80ms ease-in;
+	transition: all 0.3s ease;
+	box-shadow: 0 4px 15px rgba(37, 99, 235, 0.3);
+}
+
+button:hover {
+	transform: translateY(-2px);
+	box-shadow: 0 6px 20px rgba(37, 99, 235, 0.4);
 }
 
 button:active {
@@ -157,9 +163,7 @@ input {
 }
 
 .overlay {
-	background: #1e1d14;
-	/* background: -webkit-linear-gradient(to right, #FF4B2B, #FF416C);
-	background: linear-gradient(to right, #FF4B2B, #FF416C); */
+	background: linear-gradient(135deg, #1e3a8a 0%, #1e40af 50%, #2563eb 100%);
 	background-repeat: no-repeat;
 	background-size: cover;
 	background-position: 0 0;
