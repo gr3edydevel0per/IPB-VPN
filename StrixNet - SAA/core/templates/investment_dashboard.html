@@ -1,0 +1,245 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Investment Dashboard</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/investment.css') }}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+</head>
+<body>
+    <nav class="navbar">
+        <div class="nav-container">
+            <div class="nav-brand">
+                <i class="fas fa-chart-line"></i>
+                <span>InvestAI</span>
+            </div>
+            <div class="nav-user">
+                <span class="user-email">{{ userlogged.email }}</span>
+                <a href="/logout" class="logout-btn">
+                    <i class="fas fa-sign-out-alt"></i> Logout
+                </a>
+            </div>
+        </div>
+    </nav>
+
+    <div class="dashboard-container">
+        <!-- Investment Preferences Section -->
+        <div class="preferences-section">
+            <h2><i class="fas fa-sliders-h"></i> Investment Preferences</h2>
+            <div class="preference-cards">
+                <div class="preference-card" data-type="stocks">
+                    <i class="fas fa-chart-bar"></i>
+                    <h3>Stocks</h3>
+                    <p>Invest in individual company shares</p>
+                    <button class="pref-btn" onclick="selectPreference('stocks')">Select</button>
+                </div>
+                <div class="preference-card" data-type="mutual-funds">
+                    <i class="fas fa-briefcase"></i>
+                    <h3>Mutual Funds</h3>
+                    <p>Diversified portfolio management</p>
+                    <button class="pref-btn" onclick="selectPreference('mutual-funds')">Select</button>
+                </div>
+                <div class="preference-card" data-type="bonds">
+                    <i class="fas fa-university"></i>
+                    <h3>Bonds</h3>
+                    <p>Fixed income securities</p>
+                    <button class="pref-btn" onclick="selectPreference('bonds')">Select</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Investment Plan Section -->
+        <div class="investment-plan-section">
+            <h2><i class="fas fa-piggy-bank"></i> Investment Plan</h2>
+            <div class="plan-cards">
+                <div class="plan-card" data-plan="conservative">
+                    <div class="plan-icon">🛡️</div>
+                    <h3>Conservative</h3>
+                    <p>Low risk, steady returns</p>
+                    <ul>
+                        <li>60% Bonds</li>
+                        <li>30% Mutual Funds</li>
+                        <li>10% Stocks</li>
+                    </ul>
+                    <button class="plan-btn" onclick="selectPlan('conservative')">Choose Plan</button>
+                </div>
+                <div class="plan-card" data-plan="moderate">
+                    <div class="plan-icon">⚖️</div>
+                    <h3>Moderate</h3>
+                    <p>Balanced risk and return</p>
+                    <ul>
+                        <li>40% Stocks</li>
+                        <li>40% Mutual Funds</li>
+                        <li>20% Bonds</li>
+                    </ul>
+                    <button class="plan-btn" onclick="selectPlan('moderate')">Choose Plan</button>
+                </div>
+                <div class="plan-card" data-plan="aggressive">
+                    <div class="plan-icon">🚀</div>
+                    <h3>Aggressive</h3>
+                    <p>High risk, high returns</p>
+                    <ul>
+                        <li>70% Stocks</li>
+                        <li>25% Mutual Funds</li>
+                        <li>5% Bonds</li>
+                    </ul>
+                    <button class="plan-btn" onclick="selectPlan('aggressive')">Choose Plan</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Recommendations Section -->
+        <div class="recommendations-section" id="recommendations-section" style="display: none;">
+            <h2><i class="fas fa-lightbulb"></i> Personalized Recommendations</h2>
+            <div class="loading" id="loading">
+                <div class="spinner"></div>
+                <p>Analyzing market trends and your preferences...</p>
+            </div>
+            <div id="recommendations-content" style="display: none;">
+                <div class="recommendation-cards" id="recommendation-cards">
+                    <!-- Recommendations will be loaded here -->
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        let selectedPreference = null;
+        let selectedPlan = null;
+
+        function selectPreference(type) {
+            selectedPreference = type;
+            
+            // Remove active class from all cards
+            document.querySelectorAll('.preference-card').forEach(card => {
+                card.classList.remove('active');
+            });
+            
+            // Add active class to selected card
+            document.querySelector(`.preference-card[data-type="${type}"]`).classList.add('active');
+            
+            // Check if both selections are made
+            checkAndLoadRecommendations();
+        }
+
+        function selectPlan(plan) {
+            selectedPlan = plan;
+            
+            // Remove active class from all cards
+            document.querySelectorAll('.plan-card').forEach(card => {
+                card.classList.remove('active');
+            });
+            
+            // Add active class to selected card
+            document.querySelector(`.plan-card[data-plan="${plan}"]`).classList.add('active');
+            
+            // Check if both selections are made
+            checkAndLoadRecommendations();
+        }
+
+        function checkAndLoadRecommendations() {
+            if (selectedPreference && selectedPlan) {
+                loadRecommendations();
+            }
+        }
+
+        async function loadRecommendations() {
+            const recommendationsSection = document.getElementById('recommendations-section');
+            const loading = document.getElementById('loading');
+            const recommendationsContent = document.getElementById('recommendations-content');
+            
+            // Show recommendations section with loading
+            recommendationsSection.style.display = 'block';
+            loading.style.display = 'block';
+            recommendationsContent.style.display = 'none';
+            
+            // Scroll to recommendations
+            recommendationsSection.scrollIntoView({ behavior: 'smooth' });
+            
+            try {
+                const response = await fetch('/api/recommendations', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify({
+                        preference: selectedPreference,
+                        plan: selectedPlan
+                    })
+                });
+                
+                const data = await response.json();
+                
+                // Simulate loading time for better UX
+                setTimeout(() => {
+                    displayRecommendations(data.recommendations);
+                    loading.style.display = 'none';
+                    recommendationsContent.style.display = 'block';
+                }, 1500);
+            } catch (error) {
+                console.error('Error loading recommendations:', error);
+                loading.innerHTML = '<p style="color: red;">Error loading recommendations. Please try again.</p>';
+            }
+        }
+
+        function displayRecommendations(recommendations) {
+            const container = document.getElementById('recommendation-cards');
+            container.innerHTML = '';
+            
+            recommendations.forEach(rec => {
+                const card = document.createElement('div');
+                card.className = 'recommendation-card';
+                card.innerHTML = `
+                    <div class="rec-header">
+                        <h3>${rec.name}</h3>
+                        <span class="rec-type ${rec.type}">${rec.type.toUpperCase()}</span>
+                    </div>
+                    <div class="rec-details">
+                        <div class="rec-price">
+                            <span class="label">Current Price:</span>
+                            <span class="value">$${rec.price.toFixed(2)}</span>
+                        </div>
+                        <div class="rec-change ${rec.change > 0 ? 'positive' : 'negative'}">
+                            <i class="fas fa-arrow-${rec.change > 0 ? 'up' : 'down'}"></i>
+                            ${Math.abs(rec.change).toFixed(2)}%
+                        </div>
+                    </div>
+                    <div class="rec-metrics">
+                        <div class="metric">
+                            <span class="metric-label">Risk Level:</span>
+                            <span class="metric-value">${rec.risk}</span>
+                        </div>
+                        <div class="metric">
+                            <span class="metric-label">Expected Return:</span>
+                            <span class="metric-value">${rec.expectedReturn}%</span>
+                        </div>
+                        <div class="metric">
+                            <span class="metric-label">Rating:</span>
+                            <span class="metric-value">${'⭐'.repeat(rec.rating)}</span>
+                        </div>
+                    </div>
+                    <div class="rec-description">
+                        <p>${rec.description}</p>
+                    </div>
+                    <button class="invest-btn">
+                        <i class="fas fa-shopping-cart"></i> Invest Now
+                    </button>
+                `;
+                container.appendChild(card);
+            });
+        }
+
+        // Add smooth scroll behavior
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({ behavior: 'smooth' });
+                }
+            });
+        });
+    </script>
+</body>
+</html>
