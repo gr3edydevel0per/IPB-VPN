@@ -1,4 +1,6 @@
 @import url(https://fonts.googleapis.com/css?family=Lato:100,400);
+@import url('https://fonts.googleapis.com/css2?family=Fira+Code:wght@400;500;600&display=swap');
+
 /* Fade-in animation */
 .fade-in {
     opacity: 0;
@@ -17,7 +19,8 @@
         body{
           margin: 0;
           padding: 0;
-          background: #1e1d14;
+          background: linear-gradient(135deg, #0f2027 0%, #203a43 50%, #2c5364 100%);
+          min-height: 100vh;
         }
         
         .box{
@@ -31,9 +34,9 @@
         }
         
         .text{
-          font-family: 'Lato', sans-serif;
-          color: #fff;
-          font-weight: 300;
+          font-family: 'Fira Code', 'Lato', sans-serif;
+          color: #00ff88;
+          font-weight: 500;
           font-size: 45px;
           position: absolute;
           top: calc(50% - 105px);
@@ -44,7 +47,9 @@
           -webkit-animation: fade-in-out 2.5s infinite; 
           -moz-animation: fade-in-out 2.5s infinite; 
           -o-animation: fade-in-out 2.5s infinite; 
-          animation: fade-in-out 2.5s infinite; 
+          animation: fade-in-out 2.5s infinite;
+          text-shadow: 0 0 20px rgba(0, 255, 136, 0.5);
+          letter-spacing: 3px;
         }
         
         .comp{
@@ -52,8 +57,9 @@
           top: 0px;
           width: 80px;
           height: 55px;
-          border: 3px solid #fff;
-          border-radius: 5px;
+          border: 3px solid #00ff88;
+          border-radius: 8px;
+          box-shadow: 0 0 15px rgba(0, 255, 136, 0.3);
         }
         
         .comp:after{
@@ -65,7 +71,8 @@
           width: 65px;
           height: 10px;
           border-radius: 360px;
-          border: 3px solid #fff;
+          border: 3px solid #00ff88;
+          box-shadow: 0 0 10px rgba(0, 255, 136, 0.3);
         }
         
         .loader{
@@ -76,7 +83,8 @@
           width: 8px;
           height: 8px;
           border-radius: 360px;
-          background: #fff;
+          background: #00ff88;
+          box-shadow: 0 0 15px rgba(0, 255, 136, 0.8);
           -webkit-animation: loader 5s infinite linear 0.5s;
           -moz-animation: loader 5s infinite linear 0.5s;
           -o-animation: loader 5s infinite linear 0.5s;
@@ -89,7 +97,8 @@
           left: 85px;
           width: 100px;
           height: 3px;
-          background: #fff;
+          background: #00ff88;
+          box-shadow: 0 0 10px rgba(0, 255, 136, 0.5);
         }
         
         .byte{
@@ -98,10 +107,11 @@
           left: 80px;
           height: 9px;
           width: 9px;
-          background: #fff;
+          background: #00ff88;
           border-radius: 360px;
           z-index: 6;
           opacity: 0;
+          box-shadow: 0 0 15px rgba(0, 255, 136, 0.8);
           -webkit-animation: byte_animate 5s infinite linear 0.5s;
           -moz-animation: byte_animate 5s infinite linear 0.5s;
           -o-animation: byte_animate 5s infinite linear 0.5s;
@@ -115,9 +125,10 @@
           width: 35px;
           height: 35px;
           z-index: 1;
-          border: 3px solid #fff;
-          background: rgb(235, 181, 106);;
+          border: 3px solid #00ff88;
+          background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
           border-radius: 360px;
+          box-shadow: 0 0 20px rgba(0, 255, 136, 0.5);
           -webkit-transform: rotateX(58deg);
           -moz-transform: rotateX(58deg);
           -o-transform: rotateX(58deg);
@@ -132,21 +143,22 @@
           width: 35px;
           height: 35px;
           z-index: 20;
-          border: 3px solid #fff;
-          background: rgb(235, 181, 106);
+          border: 3px solid #00ff88;
+          background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
           border-radius: 360px;
+          box-shadow: 0 0 15px rgba(0, 255, 136, 0.5);
         }
         
         .server:after{
           position: absolute;
           top: -26px;
           left: -3px;
-          border-left: 3px solid #fff;
-          border-right: 3px solid #fff;
+          border-left: 3px solid #00ff88;
+          border-right: 3px solid #00ff88;
           width: 35px;
           height: 40px;
           z-index: 17;
-          background:rgb(235, 181, 106);
+          background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
           content: '';
         }
         
