@@ -6,27 +6,71 @@
     <title>OwlGuard Secure Access</title>
     <link rel="stylesheet" href="{{ url_for('static', filename='css/landing.css') }}">
 </head>
-<style>        .console-btn {
-    background: transparent;
-    border: 1px solid rgb(235, 181, 106);
-    color: rgb(235, 181, 106);
-    font-family: monospace;
-    font-size: 16px;
-    padding: 2px 15px;
-    margin: 0 5px;
-    cursor: pointer;
-    transition: all 0.2s;
-}
-.console-btn:hover {
-    background: #00ff00;
-    color: #000;
-}
-.status-connected {
-    color: #00ff00;
-}
-.status-disconnected {
-    color: #ff0000;
-}</style>
+<style>
+    .console-btn {
+        background: linear-gradient(135deg, rgba(0, 255, 136, 0.1) 0%, rgba(0, 255, 136, 0.05) 100%);
+        border: 2px solid #00ff88;
+        color: #00ff88;
+        font-family: 'Fira Code', monospace;
+        font-size: 15px;
+        font-weight: 500;
+        padding: 8px 25px;
+        margin: 0 8px;
+        cursor: pointer;
+        transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        border-radius: 8px;
+        position: relative;
+        overflow: hidden;
+        box-shadow: 0 4px 15px rgba(0, 255, 136, 0.2);
+    }
+
+    .console-btn::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: -100%;
+        width: 100%;
+        height: 100%;
+        background: linear-gradient(90deg, transparent, rgba(0, 255, 136, 0.3), transparent);
+        transition: left 0.5s;
+    }
+
+    .console-btn:hover::before {
+        left: 100%;
+    }
+
+    .console-btn:hover {
+        background: linear-gradient(135deg, #00ff88 0%, #00cc70 100%);
+        color: #0f2027;
+        border-color: #00ff88;
+        transform: translateY(-2px);
+        box-shadow: 0 6px 25px rgba(0, 255, 136, 0.4);
+    }
+
+    .console-btn:active {
+        transform: translateY(0);
+        box-shadow: 0 4px 15px rgba(0, 255, 136, 0.2);
+    }
+
+    .status-connected {
+        color: #00ff88;
+        font-weight: 600;
+        text-shadow: 0 0 10px rgba(0, 255, 136, 0.5);
+    }
+
+    .status-disconnected {
+        color: #ff4757;
+        font-weight: 600;
+        text-shadow: 0 0 10px rgba(255, 71, 87, 0.5);
+    }
+
+    .console-prefix {
+        color: #00ff88;
+        font-family: 'Fira Code', monospace;
+        font-size: 16px;
+        font-weight: 600;
+    }
+</style>
 <body>
 
     <div id="preloader" class="preloader" style="display:none;">
