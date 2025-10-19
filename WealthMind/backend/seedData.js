@@ -4,13 +4,13 @@ const fs = require('fs');
 const path = require('path');
 
 // Load environment variables
-dotenv.config({ path: path.join(__dirname, '../../backend/.env') });
+dotenv.config({ path: path.join(__dirname, '.env') });
 
 // Import models
-const Stock = require('../../backend/models/Stock');
-const User = require('../../backend/models/User');
-const Portfolio = require('../../backend/models/Portfolio');
-const Order = require('../../backend/models/Order');
+const Stock = require('./models/Stock');
+const User = require('./models/User');
+const Portfolio = require('./models/Portfolio');
+const Order = require('./models/Order');
 
 // Connect to MongoDB
 const connectDB = async () => {

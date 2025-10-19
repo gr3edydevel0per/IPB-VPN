@@ -8,7 +8,7 @@
     "dev": "nodemon server.js",
     "test": "jest --coverage",
     "lint": "eslint .",
-    "seed": "node database/seed/seedData.js"
+    "seed": "node seedData.js"
   },
   "keywords": ["investment", "stock", "portfolio", "mern"],
   "author": "",
